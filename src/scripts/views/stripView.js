@@ -18,7 +18,7 @@ var StripView = React.createClass({
 		return STORE.data
 	},
 	render : function() {
-		console.log(this.state)
+		console.log('state on stripView', this.state)
 		return (
 			<div className="strip-view">
 				<Banner />	
@@ -34,7 +34,6 @@ var StripView = React.createClass({
 var Strip = React.createClass({
 	// input is an array element 
 	_makeGif : function(singleModel) {
-		console.log('a single model', singleModel)
 		return (
 			<GifComponent 
 			gifData = {singleModel}
@@ -57,10 +56,27 @@ var GifComponent = React.createClass({
 		ACTIONS.setActiveID(this.props.gifData.get('id'))
 	},
 	render : function() {
-		var gifClass = this.props.activeID === this.props.gifData.get('id') ? 'single-gif active' : 'single-gif'
+		// these are the classes for when the gif is rendered in the strip. it's not active, and it has
+			// no close button, and no left-right buttons
+		var gifClass = 'single-gif',
+			buttonClass = 'hidden'
+		if (this.props.activeID === this.props.gifData.get('id')) {
+		// by contrast, these are the classes for the focus gif.
+			gifClass += ' active'
+			buttonClass = 'butts'
+		}
 		return (
-			<div  onClick={this._handleClick} className={gifClass}>
-				<img src={this.props.gifData.get('images').original.url}/>
+			<div className={gifClass}>
+				<div className="image-wrapper">
+					<div className="imageAndButtons" >
+						<img onClick={this._handleClick} src={this.props.gifData.get('images').original.url}/>
+						<div className={buttonClass}>
+							<button className="close-button" onClick={ACTIONS.unsetActiveID}>X</button>
+							<span className="previous arrow" onClick={ACTIONS.moveLeft}>&lt;</span>
+							<span className="next arrow" onClick={ACTIONS.setNextID}>&gt;</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			)
 	}
