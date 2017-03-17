@@ -1,0 +1,35 @@
+* {
+	font-family: Helvetica, Arial, sans-serif;
+	box-sizing: border-box;
+}
+
+h1 {
+	font-size: 100px;
+	text-align: center;
+	color: fuchsia;
+}
+
+img {
+	max-width: 100%
+}
+
+.strip {
+	position: fixed;
+	bottom: 0;
+	overflow: auto;
+	white-space: nowrap;
+	border: 1px solid fuchsia;
+}
+
+.single-gif {
+	width: 20%;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.single-gif.active {
+	position: fixed;
+	top: 50%;
+	left: 50%
+}
+
